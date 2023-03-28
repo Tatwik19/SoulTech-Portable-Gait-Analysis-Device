@@ -1,5 +1,6 @@
 #include <Arduino_LSM6DS3.h>
 #include <Wire.h>
+#include <math.h>
 float accelX,            accelY,             accelZ,            // units m/s/s i.e. accelZ if often 9.8 (gravity)
       gyroX,             gyroY,              gyroZ,             // units dps (degrees per second)
       gyroDriftX,        gyroDriftY,         gyroDriftZ,        // units dps
