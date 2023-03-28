@@ -64,22 +64,31 @@ void loop() {
     // CurieIMU.readMotionSensor(aix, aiy, aiz, gix, giy, giz);
 
       if (readIMU()) {
-            // update the filter, which computes orientation
-    filter.updateIMU(gx, gy, gz, ax, ay, az);
+        // update the filter, which computes orientation
+        ax = convertRawAcceleration(aix);
+        ay = convertRawAcceleration(aiy);
+        az = convertRawAcceleration(aiz);
+        gx = convertRawGyro(gix);
+        gy = convertRawGyro(giy);
+        gz = convertRawGyro(giz);
+        
+        // filter.updateIMU(gix, giy, giz, aix, aiy, aiz);
 
-    // print the heading, pitch and roll
-    roll = filter.getRoll();
-    pitch = filter.getPitch();
-    heading = filter.getYaw();
-    Serial.print("Orientation: ");
-    Serial.print(heading);
-    Serial.print(" ");
-    Serial.print(pitch);
-    Serial.print(" ");
-    Serial.println(roll);
+        filter.updateIMU(gx, gy, gz, ax, ay, az);
 
-    // increment previous time, so we keep proper pace
-    microsPrevious = microsPrevious + microsPerReading;
+        // print the heading, pitch and roll
+        roll = filter.getRoll();
+        pitch = filter.getPitch();
+        heading = filter.getYaw();
+        Serial.print("Orientation: ");
+        Serial.print(heading);
+        Serial.print(" ");
+        Serial.print(pitch);
+        Serial.print(" ");
+        Serial.println(roll);
+
+        // increment previous time, so we keep proper pace
+        microsPrevious = microsPrevious + microsPerReading;
     
 
     
