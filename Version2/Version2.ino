@@ -91,16 +91,17 @@ bool readIMU() {
 bool readPreassure(){
   a1 = analogRead(analogPin1);  a2 = analogRead(analogPin2);  a3 = analogRead(analogPin3);  a4 = analogRead(analogPin4);
   a5 = analogRead(analogPin5);  a6 = analogRead(analogPin6);  a7 = analogRead(analogPin7);  a8 = analogRead(analogPin8);
+  return true;
 }
 
 
 
 void loop() {
   
-  if (readPreassure()) {
-    // pressureCal();
-    // printPressure();
-  }
+  // if (readPreassure()) {
+  //   pressureCal();
+  //   printPressure();
+  // }
   
   if (readIMU()) {
     long currentTime = micros();
@@ -108,11 +109,12 @@ void loop() {
     lastTime = currentTime;
 
     doAngleCalculations();
-    // printAngleCalculations();
-    Position();
-    printPosition();
+    printAngleCalculations();
+    // Position();
+    // printPosition();
     
   }
+  delay(1);
 }
 
 void pressureCal(){
@@ -133,22 +135,22 @@ void pressureCal(){
 
 }
 void printPressure(){
-  Serial.print("Analogue Readings:"); 
-  Serial.print(w1);
-  Serial.print(",\t");
-  Serial.print(w2);
-  Serial.print(",\t");
-  Serial.print(w3);
-  Serial.print(",\t");
-  Serial.print(w4);
-  Serial.print(",\t");
-  Serial.print(w5);
-  Serial.print(",\t");
-  Serial.print(w6);
-  Serial.print(",\t");
-  Serial.print(w7);
-  Serial.print(",\t");
-  Serial.println(w8);
+  // Serial.print("Analogue Readings:"); 
+  // Serial.print(w1);
+  // Serial.print(",\t");
+  // Serial.print(w2);
+  // Serial.print(",\t");
+  // Serial.print(w3);
+  // Serial.print(",\t");
+  // Serial.print(w4);
+  // Serial.print(",\t");
+  // Serial.print(w5);
+  // Serial.print(",\t");
+  // Serial.print(w6);
+  // Serial.print(",\t");
+  // Serial.print(w7);
+  // Serial.print(",\t");
+  // Serial.println(w8);
 
   Serial.print("Percent Readings:"); 
   Serial.print(w1);
@@ -201,30 +203,30 @@ void printAngleCalculations() {
 }
 
 
-void Position() {
-  unsigned long curr_time = millis();
-  float dt = (curr_time - prev_time) / 1000.0;  // Time interval in seconds
-  prev_time = curr_time;
+// void Position() {
+//   unsigned long curr_time = millis();
+//   float dt = (curr_time - prev_time) / 1000.0;  // Time interval in seconds
+//   prev_time = curr_time;
 
-    // Integrate accelerometer readings to obtain velocity
-    float x_vel = accelX * dt;
-    float y_vel = accelY * dt;
-    float z_vel = accelZ * dt;
+//     // Integrate accelerometer readings to obtain velocity
+//     float x_vel = accelX * dt;
+//     float y_vel = accelY * dt;
+//     float z_vel = accelZ * dt;
 
-    // Integrate velocity readings to obtain position
-    x_pos += x_vel * dt;
-    y_pos += y_vel * dt;
-    z_pos += z_vel * dt;
-    // Compensate for gyro drift
-}
+//     // Integrate velocity readings to obtain position
+//     x_pos += x_vel * dt;
+//     y_pos += y_vel * dt;
+//     z_pos += z_vel * dt;
+//     // Compensate for gyro drift
+// }
 
 
-void printPosition(){
-    Serial.print("X position: ");
-    Serial.print(x_pos);
-    Serial.print(" m, Y position: ");
-    Serial.print(y_pos);
-    Serial.print(" m, Z position: ");
-    Serial.print(z_pos);
-    Serial.println(" m,: ");
-}
+// void printPosition(){
+//     Serial.print("X position: ");
+//     Serial.print(x_pos);
+//     Serial.print(" m, Y position: ");
+//     Serial.print(y_pos);
+//     Serial.print(" m, Z position: ");
+//     Serial.print(z_pos);
+//     Serial.println(" m,: ");
+// }
