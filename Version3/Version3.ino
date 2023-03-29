@@ -1,6 +1,10 @@
 #include <Arduino_LSM6DS3.h>
 #include <Wire.h>
 #include <math.h>
+#include <stdbool.h>
+#include "Fusion.h"
+
+
 float accelX,            accelY,             accelZ,            // units m/s/s i.e. accelZ if often 9.8 (gravity)
       gyroX,             gyroY,              gyroZ,             // units dps (degrees per second)
       gyroDriftX,        gyroDriftY,         gyroDriftZ,        // units dps
@@ -25,6 +29,8 @@ float w1 = 0, w2 = 0, w3 = 0, w4 = 0, w5 = 0, w6 = 0, w7 = 0, w8 = 0;
 float x_pos = 0, y_pos = 0, z_pos = 0;  // Position along x,y,z-axis in meters
 unsigned long prev_time = 0;
 
+#define SAMPLE_PERIOD (104)
+
 void setup() {
   Serial.begin(1000000);           //  setup serial 9600
     pinMode(LED_BUILTIN, OUTPUT);
@@ -41,6 +47,7 @@ void setup() {
   calibrateIMU(250, 250);
 
   lastTime = micros();
+
 
 }
 /*
@@ -90,19 +97,23 @@ bool readIMU() {
 }
 
 void loop() {
-    // pressureCal();
-    // printPressure();
-    
+  
+  
+  //   pressureCal();
+  //   printPressure();
+  
   if (readIMU()) {
     long currentTime = micros();
     lastInterval = currentTime - lastTime; // expecting this to be ~104Hz +- 4%
     lastTime = currentTime;
 
     doAngleCalculations();
-    printAngleCalculations();
+    // printAngleCalculations();
     // Position();
-    // printPosition();   
+    // printPosition();
+    
   }
+  delay(1);
 }
 
 void pressureCal(){
@@ -126,6 +137,23 @@ void pressureCal(){
 
 }
 void printPressure(){
+  // Serial.print("Analogue Readings:"); 
+  // Serial.print(w1);
+  // Serial.print(",\t");
+  // Serial.print(w2);
+  // Serial.print(",\t");
+  // Serial.print(w3);
+  // Serial.print(",\t");
+  // Serial.print(w4);
+  // Serial.print(",\t");
+  // Serial.print(w5);
+  // Serial.print(",\t");
+  // Serial.print(w6);
+  // Serial.print(",\t");
+  // Serial.print(w7);
+  // Serial.print(",\t");
+  // Serial.println(w8);
+
   Serial.print("Percent Readings:"); 
   Serial.print(w1);
   Serial.print(",\t");
@@ -145,64 +173,27 @@ void printPressure(){
 }
 
 void doAngleCalculations() {
-  accRoll = atan2(accelY, accelZ) * 180 / M_PI;
-  accPitch = atan2(-accelX, sqrt(accelY * accelY + accelZ * accelZ)) * 180 / M_PI;
 
-  float lastFrequency = (float) 1000000.0 / lastInterval;
-  gyroRoll = gyroRoll + (gyroX / lastFrequency);
-  gyroPitch = gyroPitch + (gyroY / lastFrequency);
-  gyroYaw = gyroYaw + (gyroZ / lastFrequency);
-
-  gyroCorrectedRoll = gyroCorrectedRoll + ((gyroX - gyroDriftX) / lastFrequency);
-  gyroCorrectedPitch = gyroCorrectedPitch + ((gyroY - gyroDriftY) / lastFrequency);
-  gyroCorrectedYaw = gyroCorrectedYaw + ((gyroZ - gyroDriftZ) / lastFrequency);
-
-  complementaryRoll = complementaryRoll + ((gyroX - gyroDriftX) / lastFrequency);
-  complementaryPitch = complementaryPitch + ((gyroY - gyroDriftY) / lastFrequency);
-  complementaryYaw = complementaryYaw + ((gyroZ - gyroDriftZ) / lastFrequency);
-
-  complementaryRoll = 0.98 * complementaryRoll + 0.02 * accRoll;
-  complementaryPitch = 0.98 * complementaryPitch + 0.02 * accPitch;
-
-  //Pedometer: Step Counter
-
-}
-void printAngleCalculations() {
+  FusionAhrs ahrs;
+  FusionAhrsInitialise(&ahrs);
+  const FusionVector gyroscope = {gyroX, gyroY, gyroZ}; // replace this with actual gyroscope data in degrees/s
+  const FusionVector accelerometer = {accelX, accelY, accelZ}; // replace this with actual accelerometer data in g
+  FusionAhrsUpdateNoMagnetometer(&ahrs, gyroscope, accelerometer, SAMPLE_PERIOD);
+  const FusionEuler euler = FusionQuaternionToEuler(FusionAhrsGetQuaternion(&ahrs));
   Serial.print("Roll: ");
-  Serial.print(complementaryRoll);
-  Serial.print(", ");
+  Serial.print(euler.angle.roll);
   Serial.print(", \t Pitch: ");
-  Serial.print(complementaryPitch);
+  Serial.print(euler.angle.pitch);
   Serial.print(", \t Yaw: ");
-  Serial.print(", ");
-  Serial.println(complementaryYaw);
+  Serial.println(euler.angle.yaw);
+
+
 }
-
-
-void Position() {
-  unsigned long curr_time = millis();
-  float dt = (curr_time - prev_time) / 1000.0;  // Time interval in seconds
-  prev_time = curr_time;
-
-    // Integrate accelerometer readings to obtain velocity
-    float x_vel = accelX * dt;
-    float y_vel = accelY * dt;
-    float z_vel = accelZ * dt;
-
-    // Integrate velocity readings to obtain position
-    x_pos += x_vel * dt;
-    y_pos += y_vel * dt;
-    z_pos += z_vel * dt;
-    // Compensate for gyro drift
-}
-
-
-void printPosition(){
-    Serial.print("X position: ");
-    Serial.print(x_pos);
-    Serial.print(" m, Y position: ");
-    Serial.print(y_pos);
-    Serial.print(" m, Z position: ");
-    Serial.print(z_pos);
-    Serial.println(" m,: ");
-}
+// void printAngleCalculations() {
+//   Serial.print("Roll: ");
+//   Serial.print(euler.angle.roll);
+//   Serial.print(", \t Pitch: ");
+//   Serial.print(euler.angle.pitch);
+//   Serial.print(", \t Yaw: ");
+//   Serial.println(euler.angle.yaw);
+// }
