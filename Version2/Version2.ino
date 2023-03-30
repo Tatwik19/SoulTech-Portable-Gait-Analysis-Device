@@ -90,16 +90,16 @@ bool readIMU() {
 }
 
 void loop() {
-    // pressureCal();
-    // printPressure();
+    pressureCal();
+    printPressure();
     
   if (readIMU()) {
     long currentTime = micros();
     lastInterval = currentTime - lastTime; // expecting this to be ~104Hz +- 4%
     lastTime = currentTime;
 
-    doAngleCalculations();
-    printAngleCalculations();
+    // doAngleCalculations();
+    // printAngleCalculations();
     // Position();
     // printPosition();   
   }
