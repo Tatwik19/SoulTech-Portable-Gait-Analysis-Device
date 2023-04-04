@@ -1,6 +1,6 @@
 # <img src="./IMAGES/SoulTech-logo.png"  width="20%" height="20%"> Portable Gait Analysis Device
-The team aims to expand and apply the knowledge of the real engineering industry to develop an compact and portable embedded system for gait analysis and provide real-time therapy feedback to doctors and improve gait balance for patients at the Barrow Institute. <br />
-<img src="./IMAGES/ASU-logo.png"  width="20%" height="20%">
+The team aims to expand and apply the knowledge of the real engineering industry to develop a compact and portable embedded system for gait analysis and provide real-time therapy feedback to doctors and improve gait balance for patients at the Barrow Institute. <br />
+<img src="./IMAGES/ASU-logo.png"  width="25%" height="25%">
 &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
 <img src="./IMAGES/Barrow-Logo.png"  width="30%" height="30%"> <br />
 ## <br /> Proposed Concepts <br />
@@ -11,10 +11,10 @@ The sole mainly consists of a conductive sensing material such as a Velostat tha
 
 ### Socks <br />
 <img src="./IMAGES/Concept2-Sock.png"  width="100%" height="100%">
-Pressure-sensitive socks are made of washable and comfortable microfibre laced with Velostat (a thin pressure-sensitive material) to relay the data required to the microcontroller through copper strips. We will try to infuse the controller, and IMU into the socks but if it's not possible, they will be attached to the sock using a detachable casing. These detachable casings will be sold separately thereby reducing the recurring costs if they break. Haptic feedback will be given using small vibration devices.
+Pressure-sensitive socks are made of washable and comfortable microfibre laced with Velostat (a thin pressure-sensitive material) to relay the data required to the microcontroller through copper strips. Team will try to infuse the controller, and IMU into the socks but if it's not possible, they will be attached to the sock using a detachable casing. These detachable casings will be sold separately thereby reducing the recurring costs if they break. Haptic feedback will be given using small vibration devices.
 
 ## CAD Designs
-Pressure-sensitive socks are made of washable and comfortable microfibre laced with Velostat to relay the data required to the microcontroller through copper strips. These are connected to copper tape to transmit the analog signal generated from the sensed pressure to a wire connected to the microcontroller. The conductive sensing materials are placed at specific points that the foot normally comes into contact with while walking. The microcontroller are placed in a separate housing with a daughterboard, linear vibration motor, and accelerometer that are be strapped near the user's ankle. These detachable casings are sold separately thereby reducing the recurring costs if they break. Haptic feedback are given using small linear vibration motor devices. The team will make sure that all embedded devices are sealed properly so that the device can be cleaned regularly.
+Pressure-sensitive socks are made of washable and comfortable microfibre laced with Velostat to relay the data required to the microcontroller through copper strips. These are connected to copper tape to transmit the analog signal generated from the sensed pressure to a wire connected to the microcontroller. The conductive sensing materials are placed at specific points that the foot normally comes into contact with while walking. The microcontroller is placed in a separate housing with a daughterboard, linear vibration motor, and accelerometer that is strapped near the user's ankle. These detachable casings are sold separately thereby reducing the recurring costs if they break. Haptic feedback is given using small linear vibration motor devices. The team will make sure that all embedded devices are sealed properly so that the device can be cleaned regularly.
 <img src="./IMAGES/CAD-Design.png"  width="100%" height="100%">
 
 
