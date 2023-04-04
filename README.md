@@ -1,6 +1,6 @@
 # SoulTech-Portable-Gait-Analysis-Device
 The team aims to expand and apply the knowledge of the real engineering industry to develop an compact and portable embedded system for gait analysis and provide real-time therapy feedback to doctors and improve gait balance for patients at the Barrow Institute.
-![Alt text](./IMAGES/ASU-logo.png = 384x216)  ![Alt text](./IMAGES/Barrow-Logo.png)
+![Alt text](./IMAGES/ASU-logo.png width="384" height="216")  ![Alt text](./IMAGES/Barrow-Logo.png)
 ## Proposed Concepts
 ![Alt text](./IMAGES/Concept1-Sole.png)
 ![Alt text](./IMAGES/Concept2-Sock.png)
