@@ -1,13 +1,15 @@
 # <img src="./IMAGES/SoulTech-logo.png"  width="20%" height="20%"> Portable Gait Analysis Device
-The team aims to expand and apply the knowledge of the real engineering industry to develop an compact and portable embedded system for gait analysis and provide real-time therapy feedback to doctors and improve gait balance for patients at the Barrow Institute. <br /> <br />
+The team aims to expand and apply the knowledge of the real engineering industry to develop an compact and portable embedded system for gait analysis and provide real-time therapy feedback to doctors and improve gait balance for patients at the Barrow Institute. <br />
 <img src="./IMAGES/ASU-logo.png"  width="30%" height="30%">
 &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
 <br />
 <img src="./IMAGES/Barrow-Logo.png"  width="30%" height="30%"> <br />
 ## <br /> Proposed Concepts <br />
+
 ### Sole
 <img src="./IMAGES/Concept1-Sole.png"  width="100%" height="100%">
 The sole mainly consists of a conductive sensing material such as a Velostat that will act as a pressure sensor. These will be connected to copper tape to transmit the analog signal generated from the sensed pressure to a wire connected to the microcontroller. The conductive sensing materials will be placed at specific points that the foot normally comes into contact with while walking. The soles will then be covered with electrical tape to protect the sensors as well as the user's feet. The microcontroller will be placed in a separate housing with a daughterboard, vibrator, and accelerometer that will be strapped near the user's ankle. The vibrator will be used for bio-feedback purposes. <br /> <br />
+
 ### Socks <br />
 <img src="./IMAGES/Concept2-Sock.png"  width="100%" height="100%">
 
