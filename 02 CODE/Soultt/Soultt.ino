@@ -1,3 +1,12 @@
+// Calculates:
+// stance_time, stance_length, step_count, cadence
+// Needs:
+// Should be an interrupt-based code, filtering sensors, and can adjust contact_threshold.
+// Cadence and stride length are not accurate due to accelerometer calculated values (could be an error in calculation Position()). 
+// Can implement BLE for haptic feedback, and exchange of info.
+
+
+
 #include <Arduino_LSM6DS3.h>
 #include <Wire.h>
 #include <math.h>
@@ -25,7 +34,7 @@ float w1 = 0, w2 = 0, w3 = 0, w4 = 0, w5 = 0, w6 = 0, w7 = 0, w8 = 0;
 float x_pos = 0, y_pos = 0, z_pos = 0;  // Position along x,y,z-axis in meters
 unsigned long prev_time = 0;
 
-float contact_threshold= 10.00;
+float contact_threshold= 20.00;
 unsigned long previous_time = 0;
 unsigned long current_time = 0;
 float stance_time = 0.0;
@@ -142,7 +151,7 @@ void loop() {
     current_time = millis();
     step_count++;
     
-  if (step_count==1){ start_time= current_time;}
+  if (step_count==1){start_time = current_time;}
   }
   else if (current_contact == 0 && previous_contact > 0) {
     // Foot just left the ground
