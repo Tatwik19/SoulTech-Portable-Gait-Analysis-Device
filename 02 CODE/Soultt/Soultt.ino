@@ -130,48 +130,48 @@ void loop() {
     //  doAngleCalculations();
     //  printAngleCalculations();
      Position();
-     printPosition();   
+    //  printPosition();   
   }
-//   current_contact = 0;
-//   float pressure_values[8]= {w1,w2,w3,w4,w5,w6,w7,w8};
-//   for (int i = 0; i < 8; i++) {
-//     if (pressure_values[i] > contact_threshold) {
-//       current_contact++;
+  current_contact = 0;
+  float pressure_values[8]= {w1,w2,w3,w4,w5,w6,w7,w8};
+  for (int i = 0; i < 8; i++) {
+    if (pressure_values[i] > contact_threshold) {
+      current_contact++;
       
-//       Serial.println(current_contact);
-//       if (i<5){
-//         if (i<3){Serial.println("Front left");}
-//         else{Serial.println("Front right");}
-//       }
-//       else{Serial.println("Heel");}
-//     }
-//   }
+      Serial.println(current_contact);
+      if (i<5){
+        if (i<3){Serial.println("Front left");}
+        else{Serial.println("Front right");}
+      }
+      else{Serial.println("Heel");}
+    }
+  }
 
-//   if (current_contact > 0 && previous_contact == 0) {
-//     // Foot just touched the ground
-//     previous_time = current_time;
-//     current_time = millis();
-//     step_count++;
+  if (current_contact > 0 && previous_contact == 0) {
+    // Foot just touched the ground
+    previous_time = current_time;
+    current_time = millis();
+    step_count++;
     
-//   if (step_count==1){start_time = current_time;}
-//   }
-//   else if (current_contact == 0 && previous_contact > 0) {
-//     // Foot just left the ground
-//     stance_time = (float)(millis() - current_time) / 1000.0;
-//   }
-//   previous_contact = current_contact;
-//   if (stance_time > 0.0 && z_vel >= 0.0) {
-//   stance_length = stance_time * z_vel; }
+  if (step_count==1){start_time = current_time;}
+  }
+  else if (current_contact == 0 && previous_contact > 0) {
+    // Foot just left the ground
+    stance_time = (float)(millis() - current_time) / 1000.0;
+  }
+  previous_contact = current_contact;
+  if (stance_time > 0.0 && z_vel >= 0.0) {
+  stance_length = stance_time * z_vel; }
 
-//   cadence= (step_count/((millis()- start_time)/60000))*60;
-//  Serial.print("stance_time: ");
-//  Serial.println(stance_time); 
-//  Serial.print("stance_length: ");
-//  Serial.println(stance_length);
-//  Serial.print("step_count: ");
-//  Serial.println(step_count);
-//  Serial.print("cadence: ");
-//  Serial.println(cadence);
+  cadence= (step_count/((millis()- start_time)/60000))*60;
+ Serial.print("stance_time: ");
+ Serial.println(stance_time); 
+ Serial.print("stance_length: ");
+ Serial.println(stance_length);
+ Serial.print("step_count: ");
+ Serial.println(step_count);
+ Serial.print("cadence: ");
+ Serial.println(cadence);
 }
 
 
