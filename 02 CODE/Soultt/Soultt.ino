@@ -108,13 +108,18 @@ bool readIMU() {
   if (IMU.accelerationAvailable() && IMU.gyroscopeAvailable() ) {
     IMU.readAcceleration(accelX, accelY, accelZ);
     IMU.readGyroscope(gyroX, gyroY, gyroZ);
+    // Remove gravity
+    float gravity = sqrt(accelX*accelX + accelY*accelY + accelZ*accelZ);
+    accelX = accelX - (accelX / gravity) * 9.81;
+    accelY = accelY - (accelY / gravity) * 9.81;
+    accelZ = accelZ - (accelZ / gravity) * 9.81;
     return true;
   }
   return false;
 }
 
 void loop() {
-    pressureCal();
+    // pressureCal();
     //printPressure();
     
   if (readIMU()) {
@@ -122,54 +127,51 @@ void loop() {
     lastInterval = currentTime - lastTime; // expecting this to be ~104Hz +- 4%
     lastTime = currentTime;
 
-     doAngleCalculations();
-     //printAngleCalculations();
+    //  doAngleCalculations();
+    //  printAngleCalculations();
      Position();
-     //printPosition();   
+     printPosition();   
   }
-  current_contact = 0;
-  float pressure_values[8]= {w1,w2,w3,w4,w5,w6,w7,w8};
-  for (int i = 0; i < 8; i++) {
-    if (pressure_values[i] > contact_threshold) {
-      current_contact++;
+//   current_contact = 0;
+//   float pressure_values[8]= {w1,w2,w3,w4,w5,w6,w7,w8};
+//   for (int i = 0; i < 8; i++) {
+//     if (pressure_values[i] > contact_threshold) {
+//       current_contact++;
       
-      Serial.println(current_contact);
-      if (i<5){
-        if (i<3){Serial.println("Front left");}
-        else{Serial.println("Front right");}
-      }
-      else{Serial.println("Heel");}
-    }
-  }
- 
+//       Serial.println(current_contact);
+//       if (i<5){
+//         if (i<3){Serial.println("Front left");}
+//         else{Serial.println("Front right");}
+//       }
+//       else{Serial.println("Heel");}
+//     }
+//   }
 
-  
-
-  if (current_contact > 0 && previous_contact == 0) {
-    // Foot just touched the ground
-    previous_time = current_time;
-    current_time = millis();
-    step_count++;
+//   if (current_contact > 0 && previous_contact == 0) {
+//     // Foot just touched the ground
+//     previous_time = current_time;
+//     current_time = millis();
+//     step_count++;
     
-  if (step_count==1){start_time = current_time;}
-  }
-  else if (current_contact == 0 && previous_contact > 0) {
-    // Foot just left the ground
-    stance_time = (float)(millis() - current_time) / 1000.0;
-  }
-  previous_contact = current_contact;
-  if (stance_time > 0.0 && z_vel >= 0.0) {
-  stance_length = stance_time * z_vel; }
+//   if (step_count==1){start_time = current_time;}
+//   }
+//   else if (current_contact == 0 && previous_contact > 0) {
+//     // Foot just left the ground
+//     stance_time = (float)(millis() - current_time) / 1000.0;
+//   }
+//   previous_contact = current_contact;
+//   if (stance_time > 0.0 && z_vel >= 0.0) {
+//   stance_length = stance_time * z_vel; }
 
-  cadence= (step_count/((millis()- start_time)/60000))*60;
- Serial.print("stance_time: ");
- Serial.println(stance_time); 
- Serial.print("stance_length: ");
- Serial.println(stance_length);
- Serial.print("step_count: ");
- Serial.println(step_count);
- Serial.print("cadence: ");
- Serial.println(cadence);
+//   cadence= (step_count/((millis()- start_time)/60000))*60;
+//  Serial.print("stance_time: ");
+//  Serial.println(stance_time); 
+//  Serial.print("stance_length: ");
+//  Serial.println(stance_length);
+//  Serial.print("step_count: ");
+//  Serial.println(step_count);
+//  Serial.print("cadence: ");
+//  Serial.println(cadence);
 }
 
 
@@ -243,30 +245,33 @@ void doAngleCalculations() {
 void printAngleCalculations() {
   Serial.print("Roll: ");
   Serial.print(complementaryRoll);
-  Serial.print(", ");
   Serial.print(", \t Pitch: ");
   Serial.print(complementaryPitch);
   Serial.print(", \t Yaw: ");
-  Serial.print(", ");
   Serial.println(complementaryYaw);
 }
 
-
+float dt = 1/0.1;
 void Position() {
   unsigned long curr_time = millis();
-  float dt = (curr_time - prev_time) / 1000.0;  // Time interval in seconds
-  prev_time = curr_time;
-
+  if (curr_time - prev_time >= 100)
+  {
+    prev_time = curr_time; 
+    
     // Integrate accelerometer readings to obtain velocity
-    x_vel = accelX * dt;
-    y_vel = accelY * dt;
-    z_vel = accelZ * dt;
+    x_vel += accelX * dt;
+    y_vel += accelY * dt;
+    z_vel += accelZ * dt;
 
     // Integrate velocity readings to obtain position
     x_pos += x_vel * dt;
     y_pos += y_vel * dt;
     z_pos += z_vel * dt;
     // Compensate for gyro drift
+  }
+  // float dt = (curr_time - prev_time) / 1000.0;  // Time interval in seconds
+  // prev_time = curr_time;
+
 }
 
 
