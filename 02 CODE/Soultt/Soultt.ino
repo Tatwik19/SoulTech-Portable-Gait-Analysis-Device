@@ -119,7 +119,7 @@ bool readIMU() {
 }
 
 void loop() {
-    // pressureCal();
+    pressureCal();
     //printPressure();
     
   if (readIMU()) {
@@ -127,7 +127,7 @@ void loop() {
     lastInterval = currentTime - lastTime; // expecting this to be ~104Hz +- 4%
     lastTime = currentTime;
 
-    //  doAngleCalculations();
+    doAngleCalculations();
     //  printAngleCalculations();
      Position();
     //  printPosition();   
