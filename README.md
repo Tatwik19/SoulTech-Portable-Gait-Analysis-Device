@@ -50,7 +50,7 @@ Pressure-sensitive socks are made of washable and comfortable microfibre laced w
 - User-friendly interface: The device must have a user-friendly interface so that both the user and the therapist can easily interpret the collected data.
 - Light and portable: The device should be light and portable so that it can be easily carried and used in various situations. 
 - Durability: Socks must be durable and long-lasting to withstand regular use without breaking or losing precision. 
-8. Compatibility: The socks must be compatible with multiple devices and software to easily integrate with existing healthcare systems.
+- Compatibility: The socks must be compatible with multiple devices and software to easily integrate with existing healthcare systems.
 
 
 
