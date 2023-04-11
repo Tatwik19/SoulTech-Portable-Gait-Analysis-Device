@@ -1,12 +1,3 @@
-// Calculates:
-// stance_time, stance_length, step_count, cadence
-// Needs:
-// Should be an interrupt-based code, filtering sensors, and can adjust contact_threshold.
-// Cadence and stride length are not accurate due to accelerometer calculated values (could be an error in calculation Position()). 
-// Can implement BLE for haptic feedback, and exchange of info.
-
-
-
 #include <Arduino_LSM6DS3.h>
 #include <Wire.h>
 #include <math.h>
@@ -34,7 +25,7 @@ float w1 = 0, w2 = 0, w3 = 0, w4 = 0, w5 = 0, w6 = 0, w7 = 0, w8 = 0;
 float x_pos = 0, y_pos = 0, z_pos = 0;  // Position along x,y,z-axis in meters
 unsigned long prev_time = 0;
 
-float contact_threshold= 20.00;
+float contact_threshold= 10.00;
 unsigned long previous_time = 0;
 unsigned long current_time = 0;
 float stance_time = 0.0;
@@ -45,7 +36,14 @@ int current_contact = 0;
 float x_vel=0.0;
 float y_vel=0.0;
 float z_vel=0.0;
+float p_accelX=0.0;
+float p_accelY=0.0;
+float p_accelZ=0.0;
+float p_velx=0.0;
+float p_vely=0.0;
+float p_velz=0.0;
 int step_count=0;
+int flag=1;
 float start_time=0.0;
 int cadence=0;
 //float pressure_values[8];
@@ -108,11 +106,6 @@ bool readIMU() {
   if (IMU.accelerationAvailable() && IMU.gyroscopeAvailable() ) {
     IMU.readAcceleration(accelX, accelY, accelZ);
     IMU.readGyroscope(gyroX, gyroY, gyroZ);
-    // Remove gravity
-    float gravity = sqrt(accelX*accelX + accelY*accelY + accelZ*accelZ);
-    accelX = accelX - (accelX / gravity) * 9.81;
-    accelY = accelY - (accelY / gravity) * 9.81;
-    accelZ = accelZ - (accelZ / gravity) * 9.81;
     return true;
   }
   return false;
@@ -127,10 +120,10 @@ void loop() {
     lastInterval = currentTime - lastTime; // expecting this to be ~104Hz +- 4%
     lastTime = currentTime;
 
-    doAngleCalculations();
-    //  printAngleCalculations();
+     doAngleCalculations();
+     //printAngleCalculations();
      Position();
-    //  printPosition();   
+     //printPosition();   
   }
   current_contact = 0;
   float pressure_values[8]= {w1,w2,w3,w4,w5,w6,w7,w8};
@@ -146,36 +139,42 @@ void loop() {
       else{Serial.println("Heel");}
     }
   }
+ 
+
+  
 
   if (current_contact > 0 && previous_contact == 0) {
     // Foot just touched the ground
     previous_time = current_time;
     current_time = millis();
     step_count++;
+   
     
-  if (step_count==1){start_time = current_time;}
+  if (step_count==1){ start_time= current_time;}
   }
   else if (current_contact == 0 && previous_contact > 0) {
     // Foot just left the ground
     stance_time = (float)(millis() - current_time) / 1000.0;
+    flag=0;
   }
   previous_contact = current_contact;
   if (stance_time > 0.0 && z_vel >= 0.0) {
   stance_length = stance_time * z_vel; }
 
-  cadence= (step_count/((millis()- start_time)/60000));
+  cadence= (step_count/((millis()- start_time)/60000))*60;
+ if(flag==0){
  Serial.print("stance_time: ");
  Serial.println(stance_time); 
  Serial.print("stance_length: ");
  Serial.println(stance_length);
  Serial.print("step_count: ");
  Serial.println(step_count);
- Serial.print("cadence: ");
+ Serial.print("steps/min: ");
  Serial.println(cadence);
-//  printAngleCalculations();
+ flag=1;
 }
 
-
+}
 void pressureCal(){
 
   a1 = analogRead(analogPin1);  a2 = analogRead(analogPin2);  a3 = analogRead(analogPin3);  a4 = analogRead(analogPin4);
@@ -194,9 +193,7 @@ void pressureCal(){
   }
   w1 = w1*percent;  w2 = w2*percent;  w3 = w3*percent;  w4 = w4*percent;
   w5 = w5*percent;  w6 = w6*percent;  w7 = w7*percent;  w8 = w8*percent;
-   //pressure_values[8]= {w1,w2,w3,w4,w5,w6,w7,w8};
-  //return pressure_values;
-//  Serial.print(pressure_values[2]);
+      
   
 
 
@@ -246,33 +243,36 @@ void doAngleCalculations() {
 void printAngleCalculations() {
   Serial.print("Roll: ");
   Serial.print(complementaryRoll);
+  Serial.print(", ");
   Serial.print(", \t Pitch: ");
   Serial.print(complementaryPitch);
   Serial.print(", \t Yaw: ");
+  Serial.print(", ");
   Serial.println(complementaryYaw);
 }
 
-float dt = 1/0.1;
+
 void Position() {
   unsigned long curr_time = millis();
-  if (curr_time - prev_time >= 100)
-  {
-    prev_time = curr_time; 
-    
+  float dt = (curr_time - prev_time) / 1000.0;  // Time interval in seconds
+  prev_time = curr_time;
+
     // Integrate accelerometer readings to obtain velocity
-    x_vel += accelX * dt;
-    y_vel += accelY * dt;
-    z_vel += accelZ * dt;
+    x_vel += ((p_accelX+accelX)/2) * dt;
+    y_vel += ((p_accelY+accelY)/2) * dt;
+    z_vel += ((p_accelZ+accelZ)/2) * dt;
+    p_accelX=accelX;
+    p_accelY=accelY;
+    p_accelZ=accelZ;
 
     // Integrate velocity readings to obtain position
-    x_pos += x_vel * dt;
-    y_pos += y_vel * dt;
-    z_pos += z_vel * dt;
+    x_pos +=((p_velx+ x_vel)/2) * dt;
+    y_pos += ((p_vely+ y_vel)/2) * dt;
+    z_pos += ((p_velz+ z_vel)/2) * dt;
+    p_velx=x_vel;
+    p_vely=y_vel;
+    p_velz=z_vel;
     // Compensate for gyro drift
-  }
-  // float dt = (curr_time - prev_time) / 1000.0;  // Time interval in seconds
-  // prev_time = curr_time;
-
 }
 
 

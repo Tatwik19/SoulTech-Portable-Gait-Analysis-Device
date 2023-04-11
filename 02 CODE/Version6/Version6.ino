@@ -1,7 +1,7 @@
-
 #include <Arduino_LSM6DS3.h>
 #include <Wire.h>
 #include <math.h>
+#include <ArduinoBLE.h>
 float accelX,            accelY,             accelZ,            // units m/s/s i.e. accelZ if often 9.8 (gravity)
       gyroX,             gyroY,              gyroZ,             // units dps (degrees per second)
       gyroDriftX,        gyroDriftY,         gyroDriftZ,        // units dps
@@ -44,10 +44,13 @@ float p_velx=0.0;
 float p_vely=0.0;
 float p_velz=0.0;
 int step_count=0;
+int previous_step=0;
 int flag=1;
 float start_time=0.0;
 int cadence=0;
 //float pressure_values[8];
+BLEService myService("19B10000-E8F2-537E-4F6C-D104768A1214"); 
+BLECharacteristic mydata("19B10001-E8F2-537E-4F6C-D104768A1214", BLERead |  BLENotify,2 );
 void setup() {
   Serial.begin(1000000);           //  setup serial 9600
     pinMode(LED_BUILTIN, OUTPUT);
@@ -64,6 +67,18 @@ void setup() {
   calibrateIMU(250, 250);
 
   lastTime = micros();
+  if (!BLE.begin()) {
+    Serial.println("Starting BLE failed!");
+    while (1);
+  }
+
+  BLE.setLocalName("Nano33BLE");
+  BLE.setAdvertisedService(myService);
+  myService.addCharacteristic(mydata);
+  BLE.addService(myService);
+  mydata.setValue("vnnvjwbs");
+  BLE.advertise();
+  Serial.println("BLE device is now advertising!");
 
 }
 /*
@@ -149,19 +164,23 @@ void loop() {
     previous_time = current_time;
     current_time = millis();
     step_count++;
-    flag=0;
+   
     
   if (step_count==1){ start_time= current_time;}
   }
   else if (current_contact == 0 && previous_contact > 0) {
     // Foot just left the ground
     stance_time = (float)(millis() - current_time) / 1000.0;
+    flag=0;
   }
   previous_contact = current_contact;
   if (stance_time > 0.0 && z_vel >= 0.0) {
   stance_length = stance_time * z_vel; }
 
-  cadence= (step_count/((millis()- start_time)/60000))*60;
+  if(previous_step < step_count){
+
+  cadence= (60000 / (current_time- previous_time)) * (step_count - previous_step);
+  }
  if(flag==0){
  Serial.print("stance_time: ");
  Serial.println(stance_time); 
@@ -169,11 +188,19 @@ void loop() {
  Serial.println(stance_length);
  Serial.print("step_count: ");
  Serial.println(step_count);
- Serial.print("cadence: ");
+ Serial.print("steps/min: ");
  Serial.println(cadence);
  flag=1;
 }
 
+  BLEDevice central = BLE.central();
+  if (central){
+    while (central.connected()) {
+      String data= String(cadence);
+      mydata.writeValue(data.c_str(), data.length());
+      Serial.println("gg");
+  }
+  }
 }
 void pressureCal(){
 
