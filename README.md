@@ -42,6 +42,15 @@ Pressure-sensitive socks are made of washable and comfortable microfibre laced w
 - Connectivity: Data collection and analysis should be possible through wireless connections between socks and a computer or mobile device.
 - Power efficiency: The socks should have a long battery life and be energy-efficient to reduce the need for frequent charging or replacement of batteries.
 
+### Usability Requirements
+- Easy to put on and take off: Socks must be designed to be easy to put on and take off so as not to cause discomfort or harm to the user. 
+- Comfortable: Socks should be made of soft, breathable material to ensure maximum comfort during use.
+- Secure fit: Socks must fit securely to prevent them from slipping or moving during use, which can affect the accuracy of the data collected.
+- Easy to clean: socks must be easy to clean after each use to maintain good hygiene and prevent the spread of infections.
+- User-friendly interface: The device must have a user-friendly interface so that both the user and the therapist can easily interpret the collected data.
+- Light and portable: The device should be light and portable so that it can be easily carried and used in various situations. 
+- Durability: Socks must be durable and long-lasting to withstand regular use without breaking or losing precision. 
+8. Compatibility: The socks must be compatible with multiple devices and software to easily integrate with existing healthcare systems.
 
 
 
