@@ -52,6 +52,14 @@ Pressure-sensitive socks are made of washable and comfortable microfibre laced w
 - Durability: Socks must be durable and long-lasting to withstand regular use without breaking or losing precision. 
 - Compatibility: The socks must be compatible with multiple devices and software to easily integrate with existing healthcare systems.
 
+## Block Diagram
+<img src="./IMAGES/Block Diagram.png"  width="100%" height="100%">
+
+## Implimentation
+<img src="./IMAGES/Implementation.png"  width="100%" height="100%">
+
+
+
 
 
 
