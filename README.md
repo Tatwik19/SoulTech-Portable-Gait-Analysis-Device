@@ -56,7 +56,7 @@ Pressure-sensitive socks are made of washable and comfortable microfibre laced w
 <img src="./IMAGES/Block Diagram.png"  width="100%" height="100%">
 
 ## Implimentation
-<img src="./IMAGES/Implementation.png"  width="100%" height="100%">
+<img src="./IMAGES/Implementation.jpg"  width="100%" height="100%">
 
 
 
