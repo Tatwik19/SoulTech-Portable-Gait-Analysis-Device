@@ -123,7 +123,7 @@ void loop() {
      doAngleCalculations();
      //printAngleCalculations();
      Position();
-     //printPosition();   
+     printPosition();   
   }
   current_contact = 0;
   float pressure_values[8]= {w1,w2,w3,w4,w5,w6,w7,w8};
@@ -188,7 +188,7 @@ void pressureCal(){
 
   sum = (w1 + w2 + w3 + w4 + w5 + w6 + w7 + w8);
   percent = 100 / sum;
-  if(sum < 100){
+  if(sum < 200){
     percent = 0;
   }
   w1 = w1*percent;  w2 = w2*percent;  w3 = w3*percent;  w4 = w4*percent;
