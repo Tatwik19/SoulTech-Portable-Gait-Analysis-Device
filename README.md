@@ -58,7 +58,8 @@ Pressure-sensitive socks are made of washable and comfortable microfibre laced w
 ## Implimentation
 <img src="./IMAGES/Implementation.jpg"  width="100%" height="100%">
 <img src="./IMAGES/BUILD_1.jpg"  width="100%" height="100%">
-<img src="./IMAGES/BUILD_3.jpg"  width="100%" height="100%">
+<img src="./IMAGES/BUILD_3.jpg"  width="80%" height="80%">
+<br />
 
 ### Calculating Gait Characteristics
 - Pressure
