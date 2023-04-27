@@ -57,12 +57,25 @@ Pressure-sensitive socks are made of washable and comfortable microfibre laced w
 
 ## Implimentation
 <img src="./IMAGES/Implementation.jpg"  width="100%" height="100%">
+<img src="./IMAGES/BUILD_1.jpg"  width="100%" height="100%">
+<img src="./IMAGES/BUILD_3.jpg"  width="100%" height="100%">
 
+### Calculating Gait Characteristics
+- Pressure
+- Stance time
+- Point of contact
+- Stance
+- Stride Length 
+- Stride Width 
+- Cadence 
+- Spatial Characteristics
 
 
 
 
 https://user-images.githubusercontent.com/96451759/234762332-7743c3fe-cdfe-4230-942c-10e17a4d2a56.mp4
+
+
 
 
 
