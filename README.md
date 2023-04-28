@@ -5,6 +5,9 @@ The SoulTech aims to expand and apply the knowledge of the real engineering indu
 <img src="./IMAGES/Barrow-Logo.png"  width="30%" height="30%"> <br />
 ## <br /> Proposed Concepts <br />
 
+## Background
+Gait analysis plays a crucial role in analyzing an individual's walking patterns, identifying abnormalities, and devising effective treatment plans. However, traditional methods of gait analysis often require expensive and time-consuming equipment, making them inaccessible to the average person. To address this problem, the invention of gait analysis socks or soles provides a more accessible and cost-effective solution for stakeholders and clients seeking to analyze their gait. These devices use specialized sensors to capture real-time data on an individual's walking patterns, providing valuable insights into their gait mechanics.
+
 ### Sole
 <img src="./IMAGES/Concept1-Sole.png"  width="100%" height="100%">
 The sole mainly consists of a conductive sensing material such as a Velostat that will act as a pressure sensor. These will be connected to copper tape to transmit the analog signal generated from the sensed pressure to a wire connected to the microcontroller. The conductive sensing materials will be placed at specific points that the foot normally comes into contact with while walking. The soles will then be covered with electrical tape to protect the sensors as well as the user's feet. The microcontroller will be placed in a separate housing with a daughterboard, vibrator, and accelerometer that will be strapped near the user's ankle. The vibrator will be used for bio-feedback purposes. <br /> 
