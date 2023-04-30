@@ -59,6 +59,12 @@ Pressure-sensitive socks are made of washable and comfortable microfibre laced w
 <img src="./IMAGES/Block Diagram.png"  width="100%" height="100%">
 8 Analog Input pins are used to obtain the pressure readings. Additionally, an analog pin was used for the haptic feedback with a linear vibrator motor. An in-built IMU was incorporated into the system which enabled the team to obtain precise measurements of the orientation and movement of the device. Furthermore, to enhance the user experience and enable a more user-friendly interface, Bluetooth connectivity was also implemented. This allowed for seamless smartphone communication, enabling the user to monitor and control the device. The combination of the Arduino Nano 33 IoT, pressure sensor, haptic feedback vibrator motor, accelerometer, and Bluetooth connectivity enabled team SoulTech to build a highly efficient and user-friendly system for pressure measurement and gait analysis.
 
+## Software Diagram
+<img src="./IMAGES/Softwarediag.png"  width="100%" height="100%">
+
+As the patient walks using the Gait Analysis sock, the doctors can analyze the pressure applied, time information, and spatial characteristics of the feet. Utilizing pressure sensors, the system records the pressure distribution, initial point of contact, and angle of the foot. By employing a complementary filter that combines pressure distribution and accelerometer data (modified with homogeneous transformation), the angle of the foot on the ground can be calculated while the sensor is attached to the ankle. The IMU data can further aid in determining spatial characteristics and cadence.
+
+
 ## Implementation
 <img src="./IMAGES/Implementation.jpg"  width="100%" height="100%">
 <img src="./IMAGES/BUILD_1.jpg"  width="100%" height="100%">
@@ -74,11 +80,6 @@ Pressure-sensitive socks are made of washable and comfortable microfibre laced w
 - Stride Width 
 - Cadence 
 - Spatial Characteristics
-
-## Software Diagram
-<img src="./IMAGES/Softwarediag.png"  width="100%" height="100%">
-
-As the patient walks using the Gait Analysis sock, the doctors can analyze the pressure applied, time information, and spatial characteristics of the feet. Utilizing pressure sensors, the system records the pressure distribution, initial point of contact, and angle of the foot. By employing a complementary filter that combines pressure distribution and accelerometer data (modified with homogeneous transformation), the angle of the foot on the ground can be calculated while the sensor is attached to the ankle. The IMU data can further aid in determining spatial characteristics and cadence.
 
 https://user-images.githubusercontent.com/96451759/234762332-7743c3fe-cdfe-4230-942c-10e17a4d2a56.mp4
 
