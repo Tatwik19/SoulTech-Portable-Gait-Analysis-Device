@@ -76,7 +76,7 @@ Pressure-sensitive socks are made of washable and comfortable microfibre laced w
 - Spatial Characteristics
 
 ## Software Diagram
-<img src="./IMAGES/Softwarediag.jpg"  width="100%" height="100%">
+<img src="./IMAGES/Softwarediag.png"  width="100%" height="100%">
 
 As the patient walks using the Gait Analysis sock, the doctors can analyze the pressure applied, time information, and spatial characteristics of the feet. Utilizing pressure sensors, the system records the pressure distribution, initial point of contact, and angle of the foot. By employing a complementary filter that combines pressure distribution and accelerometer data (modified with homogeneous transformation), the angle of the foot on the ground can be calculated while the sensor is attached to the ankle. The IMU data can further aid in determining spatial characteristics and cadence.
 
@@ -102,3 +102,5 @@ A more thorough view of a patient's general health and activity levels can be ob
 The authors would like to express their sincere appreciation to Professor Troy McDaniel, the team's mentor, and EGR 555 Mechatronic Systems class professor. His invaluable
 guidance, expertise, and support throughout the project were greatly appreciated. The authors would also like to extend their gratitude to Joelly Lobato De Faria and Kyle Sandoval,
 health practitioners at Barrow Institute, for serving as clients and main customers. Their insights, feedback, and direction provided invaluable support for the project's success.
+# AA
+aaa
