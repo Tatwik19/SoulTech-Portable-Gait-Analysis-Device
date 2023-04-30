@@ -57,6 +57,7 @@ Pressure-sensitive socks are made of washable and comfortable microfibre laced w
 
 ## Block Diagram
 <img src="./IMAGES/Block Diagram.png"  width="100%" height="100%">
+8 Analog Input pins are used to obtain the pressure readings. Additionally, an analog pin was used for the haptic feedback with a linear vibrator motor. An in-built IMU was incorporated into the system which enabled the team to obtain precise measurements of the orientation and movement of the device. Furthermore, to enhance the user experience and enable a more user-friendly interface, Bluetooth connectivity was also implemented. This allowed for seamless smartphone communication, enabling the user to monitor and control the device. The combination of the Arduino Nano 33 IoT, pressure sensor, haptic feedback vibrator motor, accelerometer, and Bluetooth connectivity enabled team SoulTech to build a highly efficient and user-friendly system for pressure measurement and gait analysis.
 
 ## Implementation
 <img src="./IMAGES/Implementation.jpg"  width="100%" height="100%">
@@ -74,14 +75,30 @@ Pressure-sensitive socks are made of washable and comfortable microfibre laced w
 - Cadence 
 - Spatial Characteristics
 
+## Software Diagram
+<img src="./IMAGES/Softwarediag.jpg"  width="100%" height="100%">
 
-
+As the patient walks using the Gait Analysis sock, the doctors can analyze the pressure applied, time information, and spatial characteristics of the feet. Utilizing pressure sensors, the system records the pressure distribution, initial point of contact, and angle of the foot. By employing a complementary filter that combines pressure distribution and accelerometer data (modified with homogeneous transformation), the angle of the foot on the ground can be calculated while the sensor is attached to the ankle. The IMU data can further aid in determining spatial characteristics and cadence.
 
 https://user-images.githubusercontent.com/96451759/234762332-7743c3fe-cdfe-4230-942c-10e17a4d2a56.mp4
 
 
+## FUTURE WORK/RECOMMENDATIONS
+Since this is currently a working prototype, future iterations can focus on improving data accuracy and integrating the device with a sock for potential use in clinical settings or commercial sales.
 
+1. Using Advanced Microcontrollers
+Arduino Platform is great for straightforward tasks but fails when burdened with huge data and when accurate data is expected as its computational abilities are very limited. The team could explore more microcontrollers such as Raspberry, on the other hand, offers a better platform as it can handle larger complex data, handle multiple tasks concurrently, and  ntegrate additional functionalities, such as advanced algorithms, communication protocols, or even graphical user interfaces.
 
+2. Implementing advanced filtering algorithms:
+Sophisticated filtering algorithms can improve the accuracy of gait analysis by reducing noise in data. AI techniques like machine learning and signal processing can be used to develop these algorithms, which can adjust to various data scenarios, ensuring accurate results for different patients and settings.
 
+3. Detecting patterns and predicting future gait changes:
+Applying machine learning algorithms to gait data can identify recurring patterns, anomalies, and changes over time, which can help detect potential problems, monitor treatment success, and develop customized rehabilitation programs. Predicting and modeling future gait changes can also be accomplished using AI techniques like time-series analysis and recurrent neural networks. These prediction programs can anticipate issues before they arise by analyzing past gait data, allowing healthcare practitioners to intervene proactively, modify treatment plans, or offer advice to patients. This has the potential to enhance patients' long-term health and mobility.
 
+4. Integration with other wearables and IoT devices
+A more thorough view of a patient's general health and activity levels can be obtained by expanding the system to incorporate data from additional wearable devices, such as smartwatches or fitness trackers. By integrating IoT devices, healthcare professionals, patients, and researchers can share data and monitor patients remotely. Better decisions, more individualized care, and greater health outcomes can all be facilitated by this connected environment.
 
+## ACKNOWLEDGMENT
+The authors would like to express their sincere appreciation to Professor Troy McDaniel, the team's mentor, and EGR 555 Mechatronic Systems class professor. His invaluable
+guidance, expertise, and support throughout the project were greatly appreciated. The authors would also like to extend their gratitude to Joelly Lobato De Faria and Kyle Sandoval,
+health practitioners at Barrow Institute, for serving as clients and main customers. Their insights, feedback, and direction provided invaluable support for the project's success.
